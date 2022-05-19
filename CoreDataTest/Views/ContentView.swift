@@ -38,7 +38,9 @@ struct ContentView: View {
 
     private func addItem() {
          withAnimation {
-             _ = Item(context: viewContext)
+             let newItem = Item(context: viewContext)
+             newItem.timestamp = Date()
+             viewContext.saveContext()
          }
      }
      
@@ -51,7 +53,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewContext =  PersistenceController(inMemory: true).viewContext
+        let viewContext =  PersistenceController(inMemory:true).viewContext
         
         for _ in 0..<10 {
             let newItem = Item(context: viewContext)
