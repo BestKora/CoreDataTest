@@ -10,7 +10,7 @@ import CoreData
 
 extension Item {
     //----------- Syntax Sugar --------------
-    var timestamp: Date {
+        var timestamp: Date {
         get { timestamp_ ?? Date()  }
         set { timestamp_ = newValue }
     }

@@ -2,8 +2,7 @@
 //  ContentView.swift
 //  CoreDataTest
 //
-//  Created by Tatiana Kornilova on 15.02.2022.
-//
+//  Created by Tatiana Kornilova on 15.02.2022
 
 import SwiftUI
 import CoreData
@@ -15,12 +14,10 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        UpdateView(item: item)
-                    } label: {Text(item.timestamp.formatted(date: .abbreviated, time: .shortened))}
+                    NavigationLink(item.timestamp.formatted(date: .abbreviated, time: .shortened), value: item)
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -29,10 +26,13 @@ struct ContentView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) { Label("Add Item", systemImage: "plus")}
+                    Button(action: addItem) { Label("", systemImage: "plus")}
                 }
             }
             .navigationTitle("Select an item")
+            .navigationDestination(for: Item.self) { item in
+                UpdateView(item: item)
+            }
         }
     }
 
